@@ -1,1 +1,31 @@
-<p>auth-form works!</p>
+<div class="auth-form">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+    <ng-content select="h1"></ng-content>
+    <label>
+      <input
+        formControlName="email"
+        placeholder="Email address"
+        type="email">
+    </label>
+    <label>
+      <input
+        formControlName="password"
+        placeholder="Enter password"
+        type="password">
+    </label>
+    <div *ngIf="emailFormatInvalid" class="error">
+      Invalid email format
+    </div>
+    <div *ngIf="passwordInvalid" class="error">
+      Password is required
+    </div>
+    <ng-content select=".error"></ng-content>
+    <div class="auth-form__action">
+      <ng-content select="button"></ng-content>
+    </div>
+    <div class="auth-form__toggle">
+      <ng-content select="a"></ng-content>
+    </div>
+  </form>
+</div>
