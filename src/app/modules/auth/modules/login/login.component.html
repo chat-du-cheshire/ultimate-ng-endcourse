@@ -2,4 +2,5 @@
   <h1>Login</h1>
   <a routerLink="/auth/register">Not registered?</a>
   <button type="submit">Login</button>
+  <div *ngIf="error" class="error">{{error.message}}</div>
 </app-auth-form>
