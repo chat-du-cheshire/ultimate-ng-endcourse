@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthModule} from './modules/auth/auth.module';
+import {Store} from 'store';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import {AuthModule} from './modules/auth/auth.module';
     AppRoutingModule,
     AuthModule
   ],
-  providers: [],
+  providers: [Store],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

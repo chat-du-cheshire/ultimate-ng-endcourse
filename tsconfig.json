@@ -16,7 +16,9 @@
       "node_modules/@types"
     ],
     "paths": {
-      "store": ["src/store.ts"]
+      "store": [
+        "src/app/utils/store.ts"
+      ]
     },
     "lib": [
       "es2018",
