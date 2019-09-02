@@ -7,9 +7,9 @@ import {Store} from 'store';
 import {HeaderComponent} from './components/header/header.component';
 import {NavComponent} from './components/nav/nav.component';
 import {HealthModule} from './modules/health/health.module';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 
-const routes = [];
+const routes: Routes = [{path: '', pathMatch: 'full', redirectTo: 'schedule'}];
 
 @NgModule({
   declarations: [
