@@ -26,6 +26,10 @@ export class AuthService {
     this.store.set('user', user);
   }));
 
+  get user() {
+    return this.af.auth.currentUser;
+  }
+
   get authState() {
     return this.af.authState;
   }
