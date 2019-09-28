@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {IMeal} from '../../../shared/services/meals.service';
 
 @Component({
   selector: 'app-meal',
@@ -14,4 +15,7 @@ export class MealComponent implements OnInit {
   ngOnInit() {
   }
 
+  addMeal($event: IMeal) {
+    console.log('Meal:', $event);
+  }
 }
