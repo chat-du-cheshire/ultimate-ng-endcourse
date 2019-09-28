@@ -3,11 +3,15 @@ import {CommonModule} from '@angular/common';
 import {MealsComponent} from './components/meals/meals.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
+import {MealComponent} from './components/meal/meal.component';
 
-const ROUTES: Routes = [{path: '', component: MealsComponent}];
+const ROUTES: Routes = [
+  {path: '', component: MealsComponent},
+  {path: 'new', component: MealComponent}
+];
 
 @NgModule({
-  declarations: [MealsComponent],
+  declarations: [MealsComponent, MealComponent],
   imports: [
     CommonModule,
     SharedModule,
