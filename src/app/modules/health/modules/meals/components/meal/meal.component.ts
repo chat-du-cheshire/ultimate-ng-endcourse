@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IMeal} from '../../../shared/services/meals.service';
+import {IMeal, MealsService} from '../../../shared/services/meals.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-meal',
@@ -9,13 +10,18 @@ import {IMeal} from '../../../shared/services/meals.service';
 })
 export class MealComponent implements OnInit {
 
-  constructor() {
+  constructor(private mealsService: MealsService, private router: Router) {
   }
 
   ngOnInit() {
   }
 
-  addMeal($event: IMeal) {
-    console.log('Meal:', $event);
+  async addMeal($event: IMeal) {
+    await this.mealsService.addMeal($event);
+    this.backToMeals();
+  }
+
+  backToMeals() {
+    this.router.navigate(['meals']);
   }
 }
