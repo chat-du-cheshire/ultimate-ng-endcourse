@@ -1,6 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {IMeal, MealsService} from '../../../shared/services/meals.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable, Subscription} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-meal',
@@ -8,12 +10,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./meal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MealComponent implements OnInit {
+export class MealComponent implements OnInit, OnDestroy {
 
-  constructor(private mealsService: MealsService, private router: Router) {
+  meal$: Observable<IMeal>;
+  private subscription: Subscription;
+
+  constructor(private mealsService: MealsService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.subscription = this.mealsService.meals$.subscribe();
+    this.meal$ = this.route.params.pipe(switchMap(params => this.mealsService.getMeal(params.id)));
   }
 
   async addMeal($event: IMeal) {
@@ -23,5 +30,9 @@ export class MealComponent implements OnInit {
 
   backToMeals() {
     this.router.navigate(['meals']);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

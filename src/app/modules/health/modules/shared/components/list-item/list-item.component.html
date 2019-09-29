@@ -4,6 +4,9 @@
     <p class="list-item__ingredients">
       <span *ngFor="let ingredient of item.ingredients">{{ingredient}}</span>
     </p>
+    <pre>
+      {{item | json}}
+    </pre>
   </a>
   <div *ngIf="toggled" class="list-item__delete">
     <p>Delete item?</p>

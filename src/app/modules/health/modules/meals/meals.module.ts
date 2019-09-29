@@ -9,7 +9,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 const ROUTES: Routes = [
   {path: '', component: MealsComponent},
-  {path: 'new', component: MealComponent}
+  {path: 'new', component: MealComponent},
+  {path: ':id', component: MealComponent}
 ];
 
 @NgModule({
