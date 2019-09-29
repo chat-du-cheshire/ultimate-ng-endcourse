@@ -19,6 +19,19 @@
     font-size: 12px;
     color: #8ea6bd;
     font-style: italic;
+
+    span {
+      background-color: #1da2d7;
+      padding: 1px 4px;
+      border-radius: 4px;
+      color: #fff;
+      display: inline-block;
+      font-weight: 500;
+
+      &:not(:last-child) {
+        margin-right: 0.25em;
+      }
+    }
   }
 
   &__delete {
