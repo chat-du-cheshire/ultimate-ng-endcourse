@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {IMeal} from '../../../shared/services/meals.service';
 import {FormArray, FormBuilder, FormControl, Validators} from '@angular/forms';
 
@@ -8,7 +8,9 @@ import {FormArray, FormBuilder, FormControl, Validators} from '@angular/forms';
   styleUrls: ['./meal-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MealFormComponent implements OnInit {
+export class MealFormComponent implements OnInit, OnChanges {
+
+  @Input() meal: IMeal;
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -16,6 +18,10 @@ export class MealFormComponent implements OnInit {
   });
 
   @Output() create = new EventEmitter<IMeal>();
+  @Output() update = new EventEmitter<IMeal>();
+  @Output() remove = new EventEmitter<IMeal>();
+  exists = false;
+  toggled = false;
 
   constructor(private fb: FormBuilder) {
   }
@@ -31,10 +37,23 @@ export class MealFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  createMeal() {
-    if (this.form.valid) {
-      this.create.next(this.form.value);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.meal && this.meal.name) {
+      this.exists = true;
+      this.emptyIngredients();
+
+      this.form.patchValue(this.meal);
+
+      if (this.meal.ingredients) {
+        for (const item of this.meal.ingredients) {
+          this.ingredients.push(new FormControl(item));
+        }
+      }
     }
+  }
+
+  toggle() {
+    this.toggled = !this.toggled;
   }
 
   removeIngredient(i: number) {
@@ -43,5 +62,27 @@ export class MealFormComponent implements OnInit {
 
   addIngredient() {
     this.ingredients.push(new FormControl(''));
+  }
+
+  createMeal() {
+    if (this.form.valid) {
+      this.create.next(this.form.value);
+    }
+  }
+
+  updateMeal() {
+    if (this.form.valid) {
+      this.update.next(this.form.value);
+    }
+  }
+
+  removeMeal() {
+    this.remove.next(this.form.value);
+  }
+
+  private emptyIngredients() {
+    while (this.ingredients.controls.length) {
+      this.ingredients.removeAt(0);
+    }
   }
 }
