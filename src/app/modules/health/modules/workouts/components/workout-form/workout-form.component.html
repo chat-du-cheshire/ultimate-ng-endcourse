@@ -1,0 +1,69 @@
+<div class="workout-form">
+
+  <form [formGroup]="form">
+    <div class="workout-form__name">
+      <label>
+        <h3>Workout name</h3>
+        <input
+          formControlName="name"
+          placeholder="e.g. English Breakfast"
+          type="text">
+        <div *ngIf="required" class="error">
+          Workout name is required
+        </div>
+      </label>
+    </div>
+    <!--    <div class="workout-form__food">-->
+    <!--      <div class="workout-form__subtitle">-->
+    <!--        <h3>Food</h3>-->
+    <!--        <button-->
+    <!--          (click)="addIngredient()"-->
+    <!--          class="workout-form__add"-->
+    <!--          type="button">-->
+    <!--          <img src="/assets/img/add-white.svg">-->
+    <!--          Add food-->
+    <!--        </button>-->
+    <!--      </div>-->
+    <!--      <div formArrayName="ingredients">-->
+    <!--        <label *ngFor="let c of ingredients.controls; index as i;">-->
+    <!--          <input [formControlName]="i" placeholder="e.g. Eggs">-->
+    <!--          <span-->
+    <!--            (click)="removeIngredient(i)"-->
+    <!--            class="workout-form__remove">-->
+    <!--              </span>-->
+    <!--        </label>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <div class="workout-form__submit">
+      <div>
+        <button (click)="createWorkout()"
+                *ngIf="!exists"
+                class="button"
+                type="button">
+          Create workout
+        </button>
+        <button (click)="updateWorkout()"
+                *ngIf="exists"
+                class="button"
+                type="button">
+          Save
+        </button>
+        <a
+          [routerLink]="['../']"
+          class="button button--cancel">
+          Cancel
+        </a>
+      </div>
+      <div *ngIf="exists" class="workout-form__delete">
+        <div *ngIf="toggled">
+          <p>Delete item?</p>
+          <button (click)="removeWorkout()" class="confirm" type="button">Yes</button>
+          <button (click)="toggle()" class="cancel" type="button">No</button>
+        </div>
+        <button (click)="toggle()" *ngIf="!toggled" class="button button--delete" type="button">
+          Delete
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
