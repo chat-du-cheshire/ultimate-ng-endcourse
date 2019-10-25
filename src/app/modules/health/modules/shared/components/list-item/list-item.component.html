@@ -1,9 +1,10 @@
 <div class="list-item">
-  <a [routerLink]="['../meals', item.$key]">
+  <a [routerLink]="route">
     <p class="list-item__name">{{item.name}}</p>
-    <p class="list-item__ingredients">
+    <p *ngIf="item.ingredients else workout" class="list-item__ingredients">
       <span *ngFor="let ingredient of item.ingredients">{{ingredient}}</span>
     </p>
+    <ng-template #workout><span class="list-item__workout-detail">{{item | workout}}</span></ng-template>
   </a>
   <div *ngIf="toggled" class="list-item__delete">
     <p>Delete item?</p>

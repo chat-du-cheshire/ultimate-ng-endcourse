@@ -34,6 +34,12 @@
     }
   }
 
+  &__workout-detail {
+    font-style: italic;
+    color: #7a98b5;
+    font-size: 0.75em;
+  }
+
   &__delete {
     display: flex;
     align-items: center;

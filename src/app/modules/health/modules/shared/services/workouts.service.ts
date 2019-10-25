@@ -5,9 +5,11 @@ import {AuthService} from '../../../../auth/modules/shared/services/auth.service
 import {Observable, of} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
 
+export type WorkoutType = 'strength' | 'endurance';
+
 export interface IWorkout {
   name: string;
-  type: string;
+  type: WorkoutType;
   strength: any;
   endurance: any;
   timestamp: number;

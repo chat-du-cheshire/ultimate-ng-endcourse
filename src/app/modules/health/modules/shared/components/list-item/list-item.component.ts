@@ -26,4 +26,8 @@ export class ListItemComponent implements OnInit {
   toggle() {
     this.toggled = !this.toggled;
   }
+
+  get route() {
+    return [`../${this.item.ingredients ? 'meals' : 'workouts'}`, this.item.$key];
+  }
 }

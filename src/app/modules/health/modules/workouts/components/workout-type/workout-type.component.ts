@@ -1,13 +1,12 @@
 import {ChangeDetectionStrategy, Component, forwardRef, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {WorkoutType} from '../../../shared/services/workouts.service';
 
 export const TYPE_CONTROL_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => WorkoutTypeComponent),
   multi: true
 };
-
-type WorkoutType = 'strength' | 'endurance';
 
 @Component({
   selector: 'workout-type',
