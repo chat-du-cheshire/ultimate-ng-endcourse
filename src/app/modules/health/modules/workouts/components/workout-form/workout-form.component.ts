@@ -14,7 +14,16 @@ export class WorkoutFormComponent implements OnInit, OnChanges {
 
   form = this.fb.group({
     name: ['', Validators.required],
-    type: 'strength'
+    type: 'strength',
+    strength: this.fb.group({
+      reps: 0,
+      sets: 0,
+      weight: 0
+    }),
+    endurance: this.fb.group({
+      distance: 0,
+      duration: 0
+    })
   });
 
   @Output() create = new EventEmitter<IWorkout>();
@@ -40,30 +49,15 @@ export class WorkoutFormComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.workout && this.workout.name) {
       this.exists = true;
-      // this.emptyIngredients();
 
       this.form.patchValue(this.workout);
 
-      // if (this.workout.ingredients) {
-      //   for (const item of this.workout.ingredients) {
-      //     this.ingredients.push(new FormControl(item));
-      //   }
-      // }
     }
   }
 
   toggle() {
     this.toggled = !this.toggled;
   }
-
-  //
-  // removeIngredient(i: number) {
-  //   this.ingredients.removeAt(i);
-  // }
-  //
-  // addIngredient() {
-  //   this.ingredients.push(new FormControl(''));
-  // }
 
   createWorkout() {
     if (this.form.valid) {
@@ -81,9 +75,7 @@ export class WorkoutFormComponent implements OnInit, OnChanges {
     this.remove.next(this.form.value);
   }
 
-  // private emptyIngredients() {
-  //   while (this.ingredients.controls.length) {
-  //     this.ingredients.removeAt(0);
-  //   }
-  // }
+  get placeholder(): string {
+    return `e.g. ${this.form.get('type').value === 'strength' ? 'Bench press' : 'Treadmill'}`;
+  }
 }

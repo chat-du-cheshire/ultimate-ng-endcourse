@@ -6,7 +6,7 @@
         <h3>Workout name</h3>
         <input
           formControlName="name"
-          placeholder="e.g. English Breakfast"
+          [placeholder]="placeholder"
           type="text">
         <div *ngIf="required" class="error">
           Workout name is required
@@ -17,27 +17,37 @@
         <workout-type formControlName="type"></workout-type>
       </label>
     </div>
-    <!--    <div class="workout-form__food">-->
-    <!--      <div class="workout-form__subtitle">-->
-    <!--        <h3>Food</h3>-->
-    <!--        <button-->
-    <!--          (click)="addIngredient()"-->
-    <!--          class="workout-form__add"-->
-    <!--          type="button">-->
-    <!--          <img src="/assets/img/add-white.svg">-->
-    <!--          Add food-->
-    <!--        </button>-->
-    <!--      </div>-->
-    <!--      <div formArrayName="ingredients">-->
-    <!--        <label *ngFor="let c of ingredients.controls; index as i;">-->
-    <!--          <input [formControlName]="i" placeholder="e.g. Eggs">-->
-    <!--          <span-->
-    <!--            (click)="removeIngredient(i)"-->
-    <!--            class="workout-form__remove">-->
-    <!--              </span>-->
-    <!--        </label>-->
-    <!--      </div>-->
-    <!--    </div>-->
+
+    <div class="workout-form__details">
+      <div *ngIf="form.get('type').value === 'strength'">
+        <div class="workout-form__fields" formGroupName="strength">
+          <label>
+            <h3>Reps</h3>
+            <input formControlName="reps" type="number">
+          </label>
+          <label>
+            <h3>Sets</h3>
+            <input formControlName="sets" type="number">
+          </label>
+          <label>
+            <h3>Weight <span>(kg)</span></h3>
+            <input formControlName="weight" type="number">
+          </label>
+        </div>
+      </div>
+      <div *ngIf="form.get('type').value === 'endurance'">
+        <div class="workout-form__fields" formGroupName="endurance">
+          <label>
+            <h3>Distance <span>(km)</span></h3>
+            <input formControlName="distance" type="number">
+          </label>
+          <label>
+            <h3>Duration <span>(minutes)</span></h3>
+            <input formControlName="duration" type="number">
+          </label>
+        </div>
+      </div>
+    </div>
     <div class="workout-form__submit">
       <div>
         <button (click)="createWorkout()"
