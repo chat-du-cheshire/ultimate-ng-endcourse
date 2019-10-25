@@ -1,0 +1,8 @@
+<div class="workout-type">
+  <div (click)="setSelected(selector)"
+       *ngFor="let selector of selectors"
+       [ngClass]="{'active': selector === value}" class="workout-type__pane">
+    <img src="/assets/img/{{selector}}.svg">
+    <p>{{selector}}</p>
+  </div>
+</div>

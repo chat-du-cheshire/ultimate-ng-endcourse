@@ -13,7 +13,8 @@ export class WorkoutFormComponent implements OnInit, OnChanges {
   @Input() workout: IWorkout;
 
   form = this.fb.group({
-    name: ['', Validators.required]
+    name: ['', Validators.required],
+    type: 'strength'
   });
 
   @Output() create = new EventEmitter<IWorkout>();
