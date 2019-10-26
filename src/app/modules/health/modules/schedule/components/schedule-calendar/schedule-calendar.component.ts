@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'schedule-calendar',
@@ -7,7 +7,12 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScheduleCalendarComponent implements OnInit {
-  @Input() date: Date;
+  selectedDay: Date;
+  @Output() change = new EventEmitter<Date>();
+
+  @Input() set date(value: Date) {
+    this.selectedDay = new Date(value.getTime());
+  };
 
   constructor() {
   }
@@ -15,4 +20,16 @@ export class ScheduleCalendarComponent implements OnInit {
   ngOnInit() {
   }
 
+  onChange(weekOffset: number) {
+    const startOfWeek = this.getStartOfWeek(new Date());
+    const startDate = new Date(startOfWeek.getFullYear(), startOfWeek.getMonth(), startOfWeek.getDay());
+    startDate.setDate(startDate.getDate() + (weekOffset * 7));
+    this.change.emit(startDate);
+  }
+
+  private getStartOfWeek(date: Date) {
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    return new Date(date.setDate(diff));
+  }
 }

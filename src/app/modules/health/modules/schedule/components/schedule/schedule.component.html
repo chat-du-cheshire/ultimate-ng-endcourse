@@ -1,3 +1,4 @@
 <div class="schedule">
-  <schedule-calendar [date]="date$ | async"></schedule-calendar>
+  <schedule-calendar (change)="changeDate($event)"
+                     [date]="date$ | async"></schedule-calendar>
 </div>
