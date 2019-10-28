@@ -9,10 +9,12 @@ import {IScheduleItem, IScheduleList} from '../../../shared/services/schedule.se
 })
 export class ScheduleCalendarComponent implements OnInit, OnChanges {
   selectedDay: Date;
-  @Output() change = new EventEmitter<Date>();
   selectedDayIndex: number;
   selectedWeek: Date;
   @Input() items: IScheduleList;
+  @Output() select = new EventEmitter<any>();
+
+  @Output() change = new EventEmitter<Date>();
 
   @Input() set date(value: Date) {
     this.selectedDay = new Date(value.getTime());
@@ -63,5 +65,13 @@ export class ScheduleCalendarComponent implements OnInit, OnChanges {
   private getToday(date: Date) {
     const today = date.getDay() - 1;
     return today < 0 ? 6 : today;
+  }
+
+  selectSection($event: any, section: string) {
+    this.select.emit({
+      ...$event,
+      section,
+      day: this.selectedDay
+    });
   }
 }
