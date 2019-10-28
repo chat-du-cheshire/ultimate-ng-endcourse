@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {IScheduleItem, IScheduleList} from '../../../shared/services/schedule.service';
 
 @Component({
   selector: 'schedule-calendar',
@@ -11,10 +12,18 @@ export class ScheduleCalendarComponent implements OnInit, OnChanges {
   @Output() change = new EventEmitter<Date>();
   selectedDayIndex: number;
   selectedWeek: Date;
+  @Input() items: IScheduleList;
 
   @Input() set date(value: Date) {
     this.selectedDay = new Date(value.getTime());
   }
+
+  sections = [
+    {key: 'morning', name: 'Morning'},
+    {key: 'lunch', name: 'Lunch'},
+    {key: 'evening', name: 'Evening'},
+    {key: 'snacks', name: 'Snacks and Drinks'}
+  ];
 
   constructor() {
   }
@@ -25,6 +34,10 @@ export class ScheduleCalendarComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.selectedDayIndex = this.getToday(this.selectedDay);
     this.selectedWeek = this.getStartOfWeek(new Date(this.selectedDay));
+  }
+
+  getSection(value: string): IScheduleItem {
+    return this.items && this.items[value] || {};
   }
 
   onChange(weekOffset: number) {

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
-import {ScheduleService} from '../../../shared/services/schedule.service';
+import {IScheduleItem, ScheduleService} from '../../../shared/services/schedule.service';
 import {Store} from 'store';
 
 @Component({
@@ -12,12 +12,14 @@ import {Store} from 'store';
 export class ScheduleComponent implements OnInit, OnDestroy {
   date$: Observable<Date>;
   subscriptions: Subscription[] = [];
+  schedule$: Observable<IScheduleItem[]>;
 
   constructor(private store: Store, private scheduleService: ScheduleService) {
   }
 
   ngOnInit() {
     this.date$ = this.store.select('date');
+    this.schedule$ = this.store.select('schedule');
     this.subscriptions = [
       this.scheduleService.schedule$.subscribe()
     ];

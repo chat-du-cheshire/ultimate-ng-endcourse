@@ -5,6 +5,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {ScheduleCalendarComponent} from './components/schedule-calendar/schedule-calendar.component';
 import {ScheduleDaysComponent} from './components/schedule-days/schedule-days.component';
 import {ScheduleControlsComponent} from './components/schedule-controls/schedule-controls.component';
+import {ScheduleSectionComponent} from './components/schedule-section/schedule-section.component';
+import {SharedModule} from '../shared/shared.module';
 
 const ROUTES: Routes = [{
   path: '',
@@ -12,10 +14,11 @@ const ROUTES: Routes = [{
 }];
 
 @NgModule({
-  declarations: [ScheduleComponent, ScheduleCalendarComponent, ScheduleDaysComponent, ScheduleControlsComponent],
+  declarations: [ScheduleComponent, ScheduleCalendarComponent, ScheduleDaysComponent, ScheduleControlsComponent, ScheduleSectionComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    SharedModule
   ]
 })
 export class ScheduleModule {

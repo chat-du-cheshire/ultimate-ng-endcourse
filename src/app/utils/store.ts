@@ -3,12 +3,14 @@ import {distinctUntilChanged, pluck} from 'rxjs/operators';
 import {IUser} from '../modules/auth/modules/shared/services/auth.service';
 import {IMeal} from '../modules/health/modules/shared/services/meals.service';
 import {IWorkout} from '../modules/health/modules/shared/services/workouts.service';
+import {IScheduleItem} from '../modules/health/modules/shared/services/schedule.service';
 
 export interface State {
   user: IUser;
   meals: IMeal[];
   workouts: IWorkout[];
   date: Date;
+  schedule: IScheduleItem[];
 
   [key: string]: any;
 }
@@ -17,7 +19,8 @@ const state: State = {
   user: undefined,
   meals: undefined,
   workouts: undefined,
-  date: undefined
+  date: undefined,
+  schedule: undefined
 };
 
 export class Store {
