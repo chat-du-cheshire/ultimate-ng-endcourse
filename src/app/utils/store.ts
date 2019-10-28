@@ -12,6 +12,7 @@ export interface State {
   date: Date;
   schedule: IScheduleItem[];
   selected: any;
+  list: any;
 
   [key: string]: any;
 }
@@ -22,7 +23,8 @@ const state: State = {
   workouts: undefined,
   date: undefined,
   schedule: undefined,
-  selected: undefined
+  selected: undefined,
+  list: undefined
 };
 
 export class Store {
